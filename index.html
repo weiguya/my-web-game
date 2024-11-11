@@ -8,11 +8,15 @@
 </head>
 <body>
   <h1>Number Guessing Game</h1>
+
+  <!-- หน้าเลือกเกม -->
   <div id="menu-container">
     <p>Choose the type of game:</p>
     <button onclick="startGame(2)">2-Digit Game</button>
     <button onclick="startGame(3)">3-Digit Game</button>
   </div>
+
+  <!-- หน้าเล่นเกม -->
   <div id="game-container" style="display: none;">
     <p>Guess the number! It's a <span id="digit-type"></span>-digit number.</p>
     <input type="number" id="guess-input" placeholder="Enter your guess">
@@ -21,6 +25,8 @@
     <p id="range-info"></p>
     <button id="back-button" style="display: none;" onclick="goBack()">Back</button>
   </div>
+
+  <!-- ลิงก์ JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
