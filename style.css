@@ -1,65 +1,54 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  color: #333;
+  background-color: #f4f4f9;
   margin: 0;
   padding: 20px;
 }
 
 h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #444;
+  color: #333;
 }
 
-#menu-container, #game-container {
-  margin-top: 30px;
+#lobby-container, #game-container {
+  margin-top: 20px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: inline-block;
 }
 
+textarea {
+  width: 300px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
 button {
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
+  padding: 10px 20px;
+  font-size: 16px;
   border-radius: 5px;
-  margin: 10px;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 input {
   padding: 10px;
   font-size: 16px;
-  width: 250px;
-  margin-top: 10px;
-  border: 2px solid #ddd;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
   border-radius: 5px;
+  width: 200px;
 }
 
-#feedback, #range-info {
-  margin-top: 20px;
-  font-size: 18px;
-}
-
-#feedback.correct {
-  color: green;
-  font-size: 24px;
-  font-weight: bold;
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+p {
+  font-size: 16px;
+  margin: 10px 0;
 }
