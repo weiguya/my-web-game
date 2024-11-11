@@ -10,7 +10,7 @@ h1 {
   color: #555;
 }
 
-#game-container {
+#menu-container, #game-container {
   margin-top: 20px;
 }
 
@@ -37,4 +37,23 @@ button:hover {
 #feedback, #range-info {
   margin-top: 20px;
   font-size: 18px;
+}
+
+#feedback.correct {
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
