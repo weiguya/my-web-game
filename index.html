@@ -5,48 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Number Guessing Game</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase Configuration -->
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBFFq3l4qwOLDba3IVc4pXv6XVKna1Yuzo",
-      authDomain: "battleofnumbers.firebaseapp.com",
-      databaseURL: "https://battleofnumbers-default-rtdb.firebaseio.com",
-      projectId: "battleofnumbers",
-      storageBucket: "battleofnumbers.appspot.com",
-      messagingSenderId: "8264140113",
-      appId: "1:8264140113:web:662aff40743ac1cca7ff70",
-      measurementId: "G-9RVHKH31D7"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-  </script>
 </head>
 <body>
   <h1>Number Guessing Game</h1>
 
-  <!-- หน้าเลือกเกม -->
-  <div id="menu-container">
-    <p>Choose the type of game:</p>
-    <button onclick="startGame(2)">2-Digit Game</button>
-    <button onclick="startGame(3)">3-Digit Game</button>
+  <!-- หน้าเลือกห้อง -->
+  <div id="lobby-container">
+    <p>Send this link to your friend:</p>
+    <textarea id="share-link" readonly></textarea>
+    <button onclick="startGame()">Start Game</button>
   </div>
 
   <!-- หน้าเล่นเกม -->
   <div id="game-container" style="display: none;">
-    <p>Guess the number! It's a <span id="digit-type"></span>-digit number.</p>
+    <p>Guess the number!</p>
     <input type="number" id="guess-input" placeholder="Enter your guess">
     <button id="guess-button">Submit Guess</button>
     <p id="feedback"></p>
-    <p id="range-info"></p>
-    <button id="back-button" style="display: none;" onclick="goBack()">Back</button>
+    <p id="player-turn"></p>
   </div>
 
-  <!-- ลิงก์ JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
