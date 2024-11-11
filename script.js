@@ -48,3 +48,7 @@ document.getElementById('guess-button').addEventListener('click', function () {
 
   document.getElementById('range-info').textContent = `The number is between ${lowerBound} and ${upperBound}.`;
 });
+// เขียนข้อมูลทดสอบลงใน Firebase
+firebase.database().ref('test').set({
+  message: "Hello Firebase!"
+});
