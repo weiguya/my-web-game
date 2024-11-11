@@ -6,6 +6,29 @@
   <title>Number Guessing Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBFFq3l4qwOLDba3IVc4pXv6XVKna1Yuzo",
+  authDomain: "battleofnumbers.firebaseapp.com",
+  databaseURL: "https://battleofnumbers-default-rtdb.firebaseio.com",
+  projectId: "battleofnumbers",
+  storageBucket: "battleofnumbers.firebasestorage.app",
+  messagingSenderId: "8264140113",
+  appId: "1:8264140113:web:662aff40743ac1cca7ff70",
+  measurementId: "G-9RVHKH31D7"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+  </head>
 <body>
   <h1>Number Guessing Game</h1>
 
