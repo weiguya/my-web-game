@@ -9,20 +9,9 @@
 <body>
   <h1>Number Guessing Game</h1>
 
-  <!-- หน้าเลือกห้อง -->
-  <div id="lobby-container">
-    <p>Send this link to your friend:</p>
-    <textarea id="share-link" readonly></textarea>
+  <div id="content">
+    <p>Welcome to the guessing game! Click below to start:</p>
     <button onclick="startGame()">Start Game</button>
-  </div>
-
-  <!-- หน้าเล่นเกม -->
-  <div id="game-container" style="display: none;">
-    <p>Guess the number!</p>
-    <input type="number" id="guess-input" placeholder="Enter your guess">
-    <button id="guess-button">Submit Guess</button>
-    <p id="feedback"></p>
-    <p id="player-turn"></p>
   </div>
 
   <script src="script.js"></script>
