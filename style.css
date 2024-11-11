@@ -1,65 +1,77 @@
-/* พื้นหลังและฟอนต์พื้นฐาน */
+/* พื้นหลังไล่สี */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  background-color: #f4f4f4;
-  color: #333;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
   margin: 0;
   padding: 20px;
 }
 
 /* หัวข้อใหญ่ */
 h1 {
-  color: #555;
-  font-size: 36px;
+  font-size: 48px;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* ส่วนของเมนูเลือกเกม */
+/* เมนูเลือกเกม */
 #menu-container, #game-container {
-  margin-top: 20px;
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: inline-block;
 }
 
 /* ปุ่ม */
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
-  background-color: #28a745;
+  background-color: #ff5722;
   color: white;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #218838;
-  transform: scale(1.05);
+  background-color: #e64a19;
+  transform: scale(1.1);
 }
 
 /* ช่องกรอกข้อมูล */
 input {
-  padding: 10px;
-  font-size: 16px;
-  width: 200px;
-  margin: 10px 0;
+  padding: 12px;
+  font-size: 18px;
+  width: 250px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  margin: 15px 0;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 /* ข้อความแสดงผล */
 #feedback, #range-info {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 22px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
-/* ข้อความแสดงผลเมื่อทายถูก */
+/* ข้อความ "ยินดีด้วย!" */
 #feedback.correct {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  color: green;
+  color: #ffc107;
   animation: pulse 1s infinite;
 }
 
-/* แอนิเมชันสำหรับข้อความ "Congratulations" */
+/* แอนิเมชัน Pulse */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -75,27 +87,24 @@ input {
 /* ปุ่ม Back */
 #back-button {
   margin-top: 20px;
-  background-color: #007bff;
+  background-color: #03a9f4;
   color: white;
 }
 
 #back-button:hover {
-  background-color: #0056b3;
+  background-color: #0288d1;
 }
 
-/* เพิ่มการตอบสนองสำหรับหน้าจอขนาดเล็ก */
+/* รองรับหน้าจอเล็ก */
 @media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
   h1 {
-    font-size: 28px;
+    font-size: 36px;
   }
   button {
-    font-size: 14px;
-    padding: 8px 16px;
+    font-size: 16px;
+    padding: 10px 20px;
   }
   input {
-    width: 100%;
+    width: 90%;
   }
 }
