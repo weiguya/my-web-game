@@ -14,6 +14,8 @@ function startGame() {
   const roomId = Math.random().toString(36).substr(2, 6); // สุ่ม Room ID
   const link = `${window.location.origin}${window.location.pathname}?room=${roomId}`;
   document.getElementById('share-link').value = link;
+  document.getElementById('lobby-container').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
 }
 
 // ระบบทายตัวเลข
