@@ -4,17 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Number Guessing Game</title>
-  <link rel="stylesheet" href="style.css"> <!-- ลิงก์ไปยัง CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Number Guessing Game</h1>
-  <p>Guess the number between 10 and 99!</p>
+  <p>Guess the number between 1 and 999!</p>
+  
   <div id="game-container">
-    <input type="number" id="guess-input" placeholder="Enter your guess" min="10" max="99">
+    <p><strong>Player Turn:</strong> <span id="current-player">Player 1</span></p>
+    <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="999">
     <button id="guess-button">Submit Guess</button>
     <p id="feedback"></p>
     <p id="range-info"></p>
   </div>
-  <script src="script.js"></script> <!-- ลิงก์ไปยัง JavaScript -->
+  
+  <script src="script.js"></script>
 </body>
 </html>
