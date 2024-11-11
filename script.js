@@ -1,50 +1,40 @@
-let answer = 0;
-let lowerBound = 0;
-let upperBound = 0;
+let answer = Math.floor(Math.random() * 99) + 1; // สุ่มคำตอบ
+let currentPlayer = 1;
 
-function startGame(digits) {
-  lowerBound = digits === 2 ? 1 : 100;
-  upperBound = digits === 2 ? 99 : 999;
-  answer = Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound;
-
-  document.getElementById('menu-container').style.display = 'none';
+// ตรวจสอบว่าผู้เล่นเป็น Player 1 หรือ Player 2
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('room')) {
+  document.getElementById('lobby-container').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
-  document.getElementById('digit-type').textContent = digits;
-
-  firebase.database().ref('game').set({
-    answer: answer,
-    lowerBound: lowerBound,
-    upperBound: upperBound
-  });
+  currentPlayer = 2; // Player 2 เข้ามาเล่นผ่านลิงก์
 }
 
+// สร้างลิงก์สำหรับแชร์ห้อง
+function startGame() {
+  const roomId = Math.random().toString(36).substr(2, 6); // สุ่ม Room ID
+  const link = `${window.location.origin}${window.location.pathname}?room=${roomId}`;
+  document.getElementById('share-link').value = link;
+}
+
+// ระบบทายตัวเลข
 document.getElementById('guess-button').addEventListener('click', () => {
   const guess = parseInt(document.getElementById('guess-input').value);
 
-  if (isNaN(guess) || guess < lowerBound || guess > upperBound) {
-    document.getElementById('feedback').textContent = `Please enter a number between ${lowerBound} and ${upperBound}.`;
+  if (isNaN(guess) || guess < 1 || guess > 99) {
+    document.getElementById('feedback').textContent = "Please enter a number between 1 and 99.";
     return;
   }
 
-  if (guess < answer) {
-    lowerBound = guess + 1;
-    document.getElementById('feedback').textContent = `Higher than ${guess}`;
-  } else if (guess > answer) {
-    upperBound = guess - 1;
-    document.getElementById('feedback').textContent = `Lower than ${guess}`;
+  if (guess === answer) {
+    document.getElementById('feedback').textContent = `🎉 Player ${currentPlayer} wins! The answer was ${answer}.`;
+    document.getElementById('guess-button').disabled = true; // ปิดปุ่มหลังเกมจบ
+  } else if (guess < answer) {
+    document.getElementById('feedback').textContent = `Higher than ${guess}.`;
   } else {
-    document.getElementById('feedback').textContent = `🎉 Congratulations! The answer was ${answer}. 🎉`;
-    document.getElementById('feedback').classList.add('correct');
-    setTimeout(() => goBack(), 5000);
+    document.getElementById('feedback').textContent = `Lower than ${guess}.`;
   }
 
-  document.getElementById('range-info').textContent = `The number is between ${lowerBound} and ${upperBound}.`;
+  // เปลี่ยนตาผู้เล่น
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+  document.getElementById('player-turn').textContent = `It's Player ${currentPlayer}'s turn.`;
 });
-
-function goBack() {
-  document.getElementById('menu-container').style.display = 'block';
-  document.getElementById('game-container').style.display = 'none';
-  document.getElementById('feedback').textContent = '';
-  document.getElementById('range-info').textContent = '';
-  document.getElementById('guess-input').value = '';
-}
