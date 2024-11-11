@@ -1,41 +1,50 @@
-let answer = 0; // คำตอบของเกม
-let lowerBound = 0; // ขอบเขตล่าง
-let upperBound = 0; // ขอบเขตบน
+let answer = 0;
+let lowerBound = 0;
+let upperBound = 0;
 
 // เริ่มเกมตามตัวเลือก
 function startGame(digits) {
-  lowerBound = digits === 2 ? 10 : 1; // ถ้า 2 หลัก เริ่มที่ 10, ถ้า 3 หลัก เริ่มที่ 1
-  upperBound = digits === 2 ? 99 : 999; // ถ้า 2 หลัก สิ้นสุดที่ 99, ถ้า 3 หลัก สิ้นสุดที่ 999
+  lowerBound = 1; // เริ่มที่ 1
+  upperBound = digits === 2 ? 99 : 999;
   answer = Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound;
 
-  // ซ่อนเมนู และแสดงเกม
   document.getElementById('menu-container').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
   document.getElementById('digit-type').textContent = digits;
+  document.getElementById('back-button').style.display = 'block';
+}
+
+// ฟังก์ชันกลับไปหน้าเลือกเกม
+function goBack() {
+  document.getElementById('menu-container').style.display = 'block';
+  document.getElementById('game-container').style.display = 'none';
+  document.getElementById('back-button').style.display = 'none';
 }
 
 // จัดการการคลิกปุ่ม Submit
 document.getElementById('guess-button').addEventListener('click', function () {
   const guess = parseInt(document.getElementById('guess-input').value);
 
-  // ตรวจสอบว่าผู้เล่นกรอกตัวเลขในช่วงหรือไม่
   if (isNaN(guess) || guess < lowerBound || guess > upperBound) {
     document.getElementById('feedback').textContent = `Please enter a number between ${lowerBound} and ${upperBound}.`;
     return;
   }
 
-  // เปรียบเทียบการทาย
   if (guess < answer) {
+    lowerBound = Math.max(lowerBound, guess + 1);
     document.getElementById('feedback').textContent = `Higher than ${guess}`;
   } else if (guess > answer) {
+    upperBound = Math.min(upperBound, guess - 1);
     document.getElementById('feedback').textContent = `Lower than ${guess}`;
   } else {
     document.getElementById('feedback').textContent = `🎉 Congratulations! The answer was ${answer}. 🎉`;
     document.getElementById('feedback').classList.add('correct');
     document.getElementById('range-info').textContent = '';
+    setTimeout(() => {
+      goBack();
+    }, 5000);
     return;
   }
 
-  // อัปเดตขอบเขต
   document.getElementById('range-info').textContent = `The number is between ${lowerBound} and ${upperBound}.`;
 });
