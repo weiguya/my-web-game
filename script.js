@@ -1,24 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const newGameBtn = document.getElementById('new-game-btn');
-  const joinGameBtn = document.getElementById('join-game-btn');
-  const roomCodeInput = document.getElementById('room-code');
+  const answer = Math.floor(Math.random() * 99) + 1; // สุ่มคำตอบระหว่าง 1-99
+  let attempts = 0; // นับจำนวนครั้งที่ทาย
 
-  if (!newGameBtn || !joinGameBtn || !roomCodeInput) {
-    console.error("Some DOM elements are missing.");
-    return;
-  }
+  document.getElementById('submit-guess').addEventListener('click', () => {
+    const guessInput = document.getElementById('guess-input');
+    const feedback = document.getElementById('feedback');
+    const guess = parseInt(guessInput.value);
 
-  newGameBtn.addEventListener('click', () => {
-    const roomId = Math.random().toString(36).substr(2, 6).toUpperCase(); // Generate Room ID
-    alert(`Your room ID is: ${roomId}\nShare this ID with your friends!`);
-  });
-
-  joinGameBtn.addEventListener('click', () => {
-    const roomCode = roomCodeInput.value.trim();
-    if (!roomCode) {
-      alert("Please enter a room code to join!");
+    if (isNaN(guess) || guess < 1 || guess > 99) {
+      feedback.textContent = "Please enter a number between 1 and 99.";
       return;
     }
-    alert(`Joining room: ${roomCode}`);
+
+    attempts++; // เพิ่มจำนวนครั้งที่ทาย
+
+    if (guess === answer) {
+      feedback.textContent = `🎉 Correct! The answer is ${answer}. You guessed it in ${attempts} attempts.`;
+      guessInput.disabled = true; // ปิดการทาย
+    } else if (guess < answer) {
+      feedback.textContent = `🔼 Higher! Try again.`;
+    } else {
+      feedback.textContent = `🔽 Lower! Try again.`;
+    }
   });
 });
