@@ -3,19 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Number Guessing Game</title>
+  <title>Guessing Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Number Guessing Game</h1>
+  <header>
+    <h1>🎲 Guessing Game 🎲</h1>
+    <p>Play with your friends or solo! Guess the number and have fun!</p>
+  </header>
 
-  <div id="game-container">
-    <p>Guess a number between <span id="range-min">1</span> and <span id="range-max">99</span>:</p>
-    <input type="number" id="guess-input" placeholder="Enter your guess">
-    <button id="guess-button">Submit Guess</button>
-    <p id="feedback"></p>
-    <p>Possible range: <span id="range-indicator">1 - 99</span></p>
-  </div>
+  <main>
+    <div id="menu">
+      <button id="new-game-btn">Start a New Game</button>
+      <div id="join-room">
+        <input type="text" id="room-code" placeholder="Enter Room Code">
+        <button id="join-game-btn">Join Game</button>
+      </div>
+    </div>
+
+    <div id="instructions">
+      <h2>How to Play</h2>
+      <p>1. Start a new game and share the room code with your friends.</p>
+      <p>2. Enter a room code to join an existing game.</p>
+      <p>3. Guess the number and have fun!</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2024 Guessing Game - Created with ❤️</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
