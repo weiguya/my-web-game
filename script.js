@@ -1,4 +1,4 @@
-// Firebase Config
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCCZoEDlhBkixk09r7pMTK405cTcLCNwDM",
   authDomain: "simple-chat-room-c51e7.firebaseapp.com",
