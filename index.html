@@ -9,9 +9,11 @@
 <body>
   <h1>Number Guessing Game</h1>
 
-  <div id="content">
-    <p>Welcome to the guessing game! Click below to start:</p>
-    <button onclick="startGame()">Start Game</button>
+  <div id="game-container">
+    <p>Guess a number between 1 and 99:</p>
+    <input type="number" id="guess-input" placeholder="Enter your guess">
+    <button id="guess-button">Submit Guess</button>
+    <p id="feedback"></p>
   </div>
 
   <script src="script.js"></script>
