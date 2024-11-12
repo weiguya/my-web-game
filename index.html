@@ -10,10 +10,11 @@
   <h1>Number Guessing Game</h1>
 
   <div id="game-container">
-    <p>Guess a number between 1 and 99:</p>
+    <p>Guess a number between <span id="range-min">1</span> and <span id="range-max">99</span>:</p>
     <input type="number" id="guess-input" placeholder="Enter your guess">
     <button id="guess-button">Submit Guess</button>
     <p id="feedback"></p>
+    <p>Possible range: <span id="range-indicator">1 - 99</span></p>
   </div>
 
   <script src="script.js"></script>
