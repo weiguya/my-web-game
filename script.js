@@ -1,8 +1,4 @@
-// Import Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-// Firebase Configuration
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCCZoEDlhBkixk09r7pMTK405cTcLCNwDM",
   authDomain: "simple-chat-room-c51e7.firebaseapp.com",
@@ -10,23 +6,65 @@ const firebaseConfig = {
   projectId: "simple-chat-room-c51e7",
   storageBucket: "simple-chat-room-c51e7.firebasestorage.app",
   messagingSenderId: "1079302562257",
-  appId: "1:1079302562257:web:46acb19989a7529dd840f0",
-  measurementId: "G-32LY5EPZTV"
+  appId: "1:1079302562257:web:46acb19989a7529dd840f0"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-// Write Data to Firebase Realtime Database
-const testRef = ref(db, 'test-node'); // Create a node named 'test-node'
-set(testRef, {
-  message: "Hello from Firebase!",
-  sender: "Tester"
-})
-  .then(() => {
-    console.log("Data written successfully!");
-  })
-  .catch((error) => {
-    console.error("Error writing data:", error);
+// DOM Elements
+const nameContainer = document.getElementById('name-container');
+const chatContainer = document.getElementById('chat-container');
+const nameInput = document.getElementById('name-input');
+const joinBtn = document.getElementById('join-btn');
+const messageInput = document.getElementById('message-input');
+const sendBtn = document.getElementById('send-btn');
+const messagesDiv = document.getElementById('messages');
+
+let username = "";
+
+// Join Chat
+joinBtn.addEventListener('click', () => {
+  const name = nameInput.value.trim();
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+  username = name;
+  nameContainer.style.display = 'none';
+  chatContainer.style.display = 'block';
+  listenForMessages();
+});
+
+// Send Message
+sendBtn.addEventListener('click', () => {
+  const message = messageInput.value.trim();
+  if (!message) return;
+
+  const chatRef = db.ref('chat');
+  const newMessage = {
+    sender: username,
+    message: message,
+    timestamp: Date.now()
+  };
+
+  chatRef.push(newMessage);
+  messageInput.value = '';
+});
+
+// Listen for Messages
+function listenForMessages() {
+  const chatRef = db.ref('chat');
+  chatRef.on('value', (snapshot) => {
+    const messages = snapshot.val();
+    messagesDiv.innerHTML = ''; // Clear chat box
+    for (const key in messages) {
+      const { sender, message } = messages[key];
+      const messageElement = document.createElement('div');
+      messageElement.textContent = `${sender}: ${message}`;
+      messagesDiv.appendChild(messageElement);
+    }
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
   });
+}
