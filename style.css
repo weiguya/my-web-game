@@ -1,68 +1,73 @@
-/* Reset */
-body, h1, p, input, button {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCCZoEDlhBkixk09r7pMTK405cTcLCNwDM",
+  authDomain: "simple-chat-room-c51e7.firebaseapp.com",
+  databaseURL: "https://simple-chat-room-c51e7-default-rtdb.firebaseio.com",
+  projectId: "simple-chat-room-c51e7",
+  storageBucket: "simple-chat-room-c51e7.firebasestorage.app",
+  messagingSenderId: "1079302562257",
+  appId: "1:1079302562257:web:46acb19989a7529dd840f0",
+  measurementId: "G-32LY5EPZTV"
+};
 
-body {
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  background: linear-gradient(to right, #83a4d4, #b6fbff);
-  padding: 20px;
-}
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-header {
-  margin-bottom: 20px;
-}
+// DOM Elements
+const nameContainer = document.getElementById('name-container');
+const chatContainer = document.getElementById('chat-container');
+const chatBox = document.getElementById('chat-box');
+const playerNameInput = document.getElementById('player-name');
+const joinChatBtn = document.getElementById('join-chat-btn');
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
 
-header h1 {
-  font-size: 32px;
-  color: #fff;
-}
+let playerName = "";
 
-main {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+// Join Chat
+joinChatBtn.addEventListener('click', () => {
+  const name = playerNameInput.value.trim();
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+  playerName = name;
+  nameContainer.style.display = 'none';
+  chatContainer.style.display = 'block';
+  listenForMessages();
+});
 
-#name-container, #chat-container {
-  margin-top: 20px;
-}
+// Send Message
+sendBtn.addEventListener('click', () => {
+  const message = chatInput.value.trim();
+  if (!message) return;
+  
+  const chatRef = db.ref('chat-room');
+  const newMessage = {
+    sender: playerName,
+    message: message,
+    timestamp: new Date().toISOString()
+  };
 
-input {
-  padding: 10px;
-  font-size: 16px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: calc(100% - 22px);
-}
+  chatRef.push(newMessage);
+  chatInput.value = '';
+});
 
-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+// Listen for Messages
+function listenForMessages() {
+  const chatRef = db.ref('chat-room');
+  chatRef.on('value', (snapshot) => {
+    const messages = snapshot.val();
+    chatBox.innerHTML = ''; // Clear chat box
 
-button:hover {
-  background-color: #45a049;
-}
+    for (const key in messages) {
+      const { sender, message } = messages[key];
+      const messageElement = document.createElement('div');
+      messageElement.textContent = `${sender}: ${message}`;
+      chatBox.appendChild(messageElement);
+    }
 
-#chat-box {
-  height: 200px;
-  overflow-y: scroll;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+  });
 }
