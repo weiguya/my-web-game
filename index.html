@@ -3,28 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Number Guessing Game</title>
+  <title>Simple Chat Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>🎲 Guessing Game 🎲</h1>
-    <p>Guess the secret number between 1 and 99!</p>
+    <h1>Welcome to the Chat Room</h1>
   </header>
 
   <main>
-    <div id="game-container">
-      <p id="instructions">Enter your guess below:</p>
-      <input type="number" id="guess-input" placeholder="Enter a number">
-      <button id="submit-guess">Submit</button>
-      <p id="feedback"></p>
+    <div id="name-container">
+      <p>Enter your name to join the chat:</p>
+      <input type="text" id="player-name" placeholder="Your name">
+      <button id="join-chat-btn">Join Chat</button>
+    </div>
+
+    <div id="chat-container" style="display: none;">
+      <h2>Chat Room</h2>
+      <div id="chat-box"></div>
+      <input type="text" id="chat-input" placeholder="Type a message">
+      <button id="send-btn">Send</button>
     </div>
   </main>
 
   <footer>
-    <p>© 2024 Guessing Game</p>
+    <p>© 2024 Simple Chat Room</p>
   </footer>
 
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
