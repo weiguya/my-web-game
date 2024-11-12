@@ -63,3 +63,25 @@ function listenForMessages() {
     chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
   });
 }
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCCZoEDlhBkixk09r7pMTK405cTcLCNwDM",
+  authDomain: "simple-chat-room-c51e7.firebaseapp.com",
+  projectId: "simple-chat-room-c51e7",
+  storageBucket: "simple-chat-room-c51e7.firebasestorage.app",
+  messagingSenderId: "1079302562257",
+  appId: "1:1079302562257:web:46acb19989a7529dd840f0",
+  measurementId: "G-32LY5EPZTV"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
