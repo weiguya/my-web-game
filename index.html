@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Chat Room</title>
+  <title>Chat Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,25 +14,23 @@
   <main>
     <div id="name-container">
       <p>Enter your name to join the chat:</p>
-      <input type="text" id="player-name" placeholder="Your name">
-      <button id="join-chat-btn">Join Chat</button>
+      <input type="text" id="name-input" placeholder="Your name">
+      <button id="join-btn">Join</button>
     </div>
 
     <div id="chat-container" style="display: none;">
-      <h2>Chat Room</h2>
-      <div id="chat-box"></div>
-      <input type="text" id="chat-input" placeholder="Type a message">
+      <div id="messages"></div>
+      <input type="text" id="message-input" placeholder="Type your message">
       <button id="send-btn">Send</button>
     </div>
   </main>
 
   <footer>
-    <p>© 2024 Simple Chat Room</p>
+    <p>© 2024 Chat Room</p>
   </footer>
 
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
