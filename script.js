@@ -1,26 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const answer = Math.floor(Math.random() * 99) + 1; // สุ่มคำตอบระหว่าง 1-99
-  let attempts = 0; // นับจำนวนครั้งที่ทาย
+// Firebase Config
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js";
 
-  document.getElementById('submit-guess').addEventListener('click', () => {
-    const guessInput = document.getElementById('guess-input');
-    const feedback = document.getElementById('feedback');
-    const guess = parseInt(guessInput.value);
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-    if (isNaN(guess) || guess < 1 || guess > 99) {
-      feedback.textContent = "Please enter a number between 1 and 99.";
-      return;
-    }
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    attempts++; // เพิ่มจำนวนครั้งที่ทาย
+let playerName = "";
 
-    if (guess === answer) {
-      feedback.textContent = `🎉 Correct! The answer is ${answer}. You guessed it in ${attempts} attempts.`;
-      guessInput.disabled = true; // ปิดการทาย
-    } else if (guess < answer) {
-      feedback.textContent = `🔼 Higher! Try again.`;
-    } else {
-      feedback.textContent = `🔽 Lower! Try again.`;
-    }
-  });
+// DOM Elements
+const nameContainer = document.getElementById('name-container');
+const chatContainer = document.getElementById('chat-container');
+const chatBox = document.getElementById('chat-box');
+const chatInput = document.getElementById('chat-input');
+const joinChatBtn = document.getElementById('join-chat-btn');
+const sendBtn = document.getElementById('send-btn');
+
+// Join Chat
+joinChatBtn.addEventListener('click', () => {
+  const nameInput = document.getElementById('player-name').value.trim();
+  if (!nameInput) {
+    alert("Please enter your name.");
+    return;
+  }
+  playerName = nameInput;
+  nameContainer.style.display = 'none';
+  chatContainer.style.display = 'block';
+  listenForMessages();
 });
+
+// Send Message
+sendBtn.addEventListener('click', () => {
+  const message = chatInput.value.trim();
+  if (!message) return;
+  const chatRef = ref(db, 'chat');
+  push(chatRef, { name: playerName, message });
+  chatInput.value = '';
+});
+
+// Listen for Messages
+function listenForMessages() {
+  const chatRef = ref(db, 'chat');
+  onValue(chatRef, (snapshot) => {
+    chatBox.innerHTML = ''; // Clear chat box
+    const messages = snapshot.val();
+    for (const key in messages) {
+      const { name, message } = messages[key];
+      const messageElement = document.createElement('div');
+      messageElement.textContent = `${name}: ${message}`;
+      chatBox.appendChild(messageElement);
+    }
+    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+  });
+}
